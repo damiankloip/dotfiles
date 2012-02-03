@@ -11,6 +11,15 @@ function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
+function check_compression {
+  echo 'lemme check that gzip for you... *drum roll*'
+  if curl --silent -I -H 'Accept-Encoding: gzip,deflate' $1 | grep 'Content-Encoding' > /dev/null; then
+    echo 'gzip ALL the content!'
+  else
+    echo 'yeah.. not really gzipped'
+  fi
+}
+
 export PS1='\u@\h \[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$ '
 
 # export EDITOR='nano'
