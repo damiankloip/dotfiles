@@ -4,7 +4,6 @@ require 'irb/ext/save-history'
 
 IRB.conf[:SAVE_HISTORY] = 1000
 IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb_history"
-
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 
 %w[rubygems looksee wirble].each do |gem|
@@ -15,8 +14,11 @@ IRB.conf[:PROMPT_MODE] = :SIMPLE
   end
 end
 
-Wirble.init
-Wirble.colorize
+if Gem::Specification::find_all_by_name('wirble').any?
+  Wirble.init
+  Wirble.colorize
+end
+
 
 class Object
   # list methods which aren't in superclass
