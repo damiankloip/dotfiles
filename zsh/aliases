@@ -1,14 +1,3 @@
-# changing directory to sites project
-function c { cd ~/Sites/$1; }
-
-# alternative to "rails" command to use templates
-function railsapp {
-  template=$1
-  appname=$2
-  shift 2
-  rails $appname -m http://github.com/ryanb/rails-templates/raw/master/$template.rb $@
-}
-
 # cd
 alias ..='cd ..'
 
@@ -32,9 +21,19 @@ alias grm="git status | grep deleted | awk '{print \$3}' | xargs git rm"
 alias changelog='git log `git log -1 --format=%H -- CHANGELOG*`..; cat CHANGELOG*'
 alias glo="git log --graph"
 
-# misc
-alias reload='. ~/.bash_profile'
+# rails
+alias sc='script/console'
+alias ss='script/server'
+alias sg='script/generate'
+alias a='autotest -rails'
+alias tlog='tail -f log/development.log'
+alias scaffold='script/generate nifty_scaffold'
+alias migrate='rake db:migrate db:test:clone'
+alias rst='touch tmp/restart.txt'
 
+# commands starting with % for pasting from web
+alias %=' '
+
+# Others
 alias grep='grep --color'
 alias tree='tree -C'
-alias dtr='sudo php $(drush dd)/scripts/run-tests.sh --color --verbose'
