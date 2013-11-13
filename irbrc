@@ -23,7 +23,13 @@ end
 class Object
   # list methods which aren't in superclass
   def local_methods(obj = self)
-    (obj.methods - obj.class.superclass.instance_methods).sort
+    methods = case obj.class
+    when Module, Class
+      (obj.methods - obj.class.superclass.methods)
+    else
+      (obj.methods - obj.class.superclass.instance_methods)
+    end
+    methods.sort
   end
   
   # print documentation
@@ -57,4 +63,4 @@ def paste
   `pbpaste`
 end
 
-load File.dirname(__FILE__) + '/.railsrc' if ($0 == 'irb' && ENV['RAILS_ENV']) || ($0 == 'script/rails' && Rails.env)
+#load File.dirname(__FILE__) + '/.railsrc' if ($0 == 'irb' && ENV['RAILS_ENV']) || ($0 == 'script/rails' && Rails.env)
